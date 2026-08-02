@@ -203,12 +203,11 @@ section{padding:clamp(48px,7vw,96px) clamp(20px,4vw,56px)}
 .btn:hover .arw{transform:translateX(4px)}
 
 /* ---------- all-work page ---------- */
-.aw-intro{
-  font-size:13px;color:var(--muted);max-width:60ch;line-height:1.7;
-  margin-bottom:clamp(36px,5vw,60px);
-}
 .cat-block{margin-bottom:clamp(44px,6vw,80px)}
 .cat-block:last-child{margin-bottom:0}
+/* .fp spaces itself from above and adds nothing below, so the first archive row
+   after a highlighted project would otherwise butt straight against it */
+.fp + .cat-block{margin-top:clamp(44px,6vw,80px)}
 .cat-block-head{
   display:flex;justify-content:space-between;align-items:center;gap:16px;
   margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--hairline);
@@ -231,6 +230,10 @@ section{padding:clamp(48px,7vw,96px) clamp(20px,4vw,56px)}
 .harrow:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
 .harrow[disabled]{opacity:.25;cursor:default}
 .harrow[disabled]:hover{background:transparent;color:var(--ink);border-color:var(--hairline)}
+@media(max-width:600px){
+  .harrow{width:30px;height:30px;font-size:15px}
+  .hctrl{gap:6px}
+}
 
 .hscroll{
   display:flex;gap:clamp(14px,2vw,22px);
@@ -239,6 +242,9 @@ section{padding:clamp(48px,7vw,96px) clamp(20px,4vw,56px)}
   -webkit-overflow-scrolling:touch;
   padding-bottom:14px;
 }
+/* while a row is drifting on its own, snap and smooth would fight the animation.
+   both are restored the moment a visitor takes over. */
+.hscroll.drift{scroll-behavior:auto;scroll-snap-type:none}
 .hscroll::-webkit-scrollbar{height:8px}
 .hscroll::-webkit-scrollbar-thumb{background:var(--hairline)}
 .hscroll::-webkit-scrollbar-track{background:transparent}
@@ -344,8 +350,10 @@ footer{
 }
 .client-lede{
   max-width:66ch;font-size:13px;line-height:1.75;color:var(--muted);
-  margin-bottom:clamp(26px,3.5vw,40px);
+  margin-bottom:16px;
 }
+/* only the final lede paragraph opens up the gap before the scope list */
+.client-block p:last-of-type{margin-bottom:clamp(26px,3.5vw,40px)}
 .client-scope{margin-bottom:clamp(40px,5vw,64px)}
 
 /* challenge / solution / results, per project */
